@@ -1,0 +1,36 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet"  href="static/styles.css" type="text/css">
+        <title>Artist</title>
+    </head>
+    <p>
+    <input type="button" value="Back to the main page" onclick="window.location = '/'">
+    </p>
+    <p>
+    <input type="button" value="Back to the filter page" onclick="history.back()">
+    </p>
+    <body class="body">
+        <center>
+            <div>
+                <h1>{{.A.Name}}</h1>
+                <img src="{{.A.Image}}">
+                <h2>Members:</h2>
+                    {{range .A.Members}}
+                    <li>{{.}}</li>
+                    {{end}}
+                <h2>Creation date:</h2> 
+                    {{.A.CreationDate}}
+                <h2>First album:</h2>  
+                    {{.A.FirstAlbum}}
+                <h2>Concerts:</h2>
+                {{range $key, $val := .R.DatesLocations}}
+                <li class="list">{{$key}}: 
+                    {{range $val }}  <li>{{.}}</li> {{end}} 
+                </li>
+                {{end}}
+            </div>
+        </center>
+    </body>
+</html>

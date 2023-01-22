@@ -1,0 +1,49 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet"  href="static/styles.css" type="text/css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Prosto+One&display=swap" rel="stylesheet">
+        <title>Groupie-Tracker</title>
+    </head>
+    <body class="body">
+        <div class="background">
+            <img class="logo" src="static/logo.jpg">
+            <form action="/filters/" method="GET" autocomplete="off">
+                <fieldset class="fieldset">
+                <legend>Filters</legend>
+                    <p class="filter">
+                    <input type="checkbox" name="CreationDate" id="CD">
+                    <label for="CD">Creation year</label>
+                    </p>
+                        <input class="insert" type="text" inputmode="numeric" name="CreationDateFrom" placeholder="From year">
+                        <input class="insert" type="text" inputmode="numeric" name="CreationDateTo" placeholder="To year">
+                    <br>
+                    <p class="filter">
+                    <input type="checkbox" name="FirstAlbumDate" id="FAD">
+                    <label for="FAD">First album date</label>
+                    </p>
+                        <input class="insert" type="text" name="FirstFrom" placeholder="dd-mm-yyyy">
+                        <input class="insert" type="text" name="FirstTo" placeholder="dd-mm-yyyy">
+                    <p>
+                    <input class="filter-button" type="submit" value="FILTER">
+                    </p>  
+                </fieldset>
+        </div>
+            </form>
+            <div class="center">
+                {{range .}}
+                <li class="list">
+                <a class="link" href="/artist/{{.ID}}">
+                <fieldset class="fieldset">
+                    <legend>{{.Name}}</legend>
+                    <img class="image" src="{{.Image}}">
+                </fieldset>
+                </a>
+                </li>
+                {{end}}
+             </div>
+    </body>
+</html>
