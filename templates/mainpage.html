@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet"  href="static/styles.css" type="text/css">
+        <link rel="stylesheet"  href="../static/styles.css" type="text/css">
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Prosto+One&display=swap" rel="stylesheet">
@@ -10,7 +10,7 @@
     </head>
     <body class="body">
         <div class="background">
-            <img class="logo" src="static/logo.jpg">
+            <img class="logo" src="../static/logo.jpg">
             <form action="/filters/" method="GET" autocomplete="off">
                 <fieldset class="fieldset">
                 <legend>Filters</legend>
@@ -31,19 +31,19 @@
                     <input class="filter-button" type="submit" value="FILTER">
                     </p>  
                 </fieldset>
-        </div>
             </form>
-            <div class="center">
-                {{range .}}
-                <li class="list">
+        </div>
+        <div class="center">
+            {{range .}}
+            <li class="list">
                 <a class="link" href="/artist/{{.ID}}">
-                <fieldset class="fieldset">
+                <fieldset class="fieldset-artist">
                     <legend>{{.Name}}</legend>
                     <img class="image" src="{{.Image}}">
                 </fieldset>
                 </a>
-                </li>
-                {{end}}
-             </div>
+            </li>
+            {{end}}
+        </div>
     </body>
 </html>

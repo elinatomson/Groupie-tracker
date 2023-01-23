@@ -20,11 +20,34 @@
     border-radius: 47%;
     border: 5px inset rgb(228, 227, 227);
     opacity: 0.7;
+    pointer-events: none;
+}
+
+.logo-artist {
+    width: 150px;
+    border-radius: 47%;
+    border: 5px inset rgb(228, 227, 227);
+    opacity: 0.7;
+    position: fixed;
+    margin: 10px 15px 15px 10px;
+    display:inline-block;
+    left: 0;
+    pointer-events: none;
 }
 
 .fieldset {
-    width: 15%;
-    text-align: center;
+    width: 30%;
+    border-top-right-radius: 70px;
+    border-bottom-left-radius: 70px;
+    text-align: left;
+    font-size: 25px;
+    display: inline-block;
+    border: 5px inset rgb(228, 227, 227);
+    color: rgb(121, 120, 120);
+    margin-top: auto;
+}
+
+.fieldset-artist {
     border-top-right-radius: 70px;
     border-bottom-left-radius: 70px;
     text-align: left;
@@ -32,8 +55,56 @@
     display: inline-block;
     border: 5px inset rgb(228, 227, 227);
     color: rgb(121, 120, 120);
-    margin-right: 40px;
     margin-top: auto;
+    background-color: black;
+}
+
+.image {
+    width: 300px;
+    border-top-right-radius: 60px;
+    border-bottom-left-radius: 60px;
+    pointer-events: none;
+    padding: 5px 10px 5px 10px;
+}
+
+.filter {
+    border-top-right-radius: 20px;
+    border-bottom-left-radius: 20px;
+    display: inline-block;
+    font-size: 20px;
+    color: #fff;
+    padding: 5px 10px 5px 10px;
+    background-color: rgb(121, 120, 120);
+    transition: background-color 1s, color 1s;
+    margin-right: 90px;
+} 
+
+.insert {
+    font-family: 'Prosto One', cursive;
+    color: rgb(121, 120, 120);
+    font-size: 20px;
+}
+
+.filter-button {
+    border-top-right-radius: 20px;
+    border-bottom-left-radius: 20px;
+    display:inline-block;
+    font-size: 20px;
+    color: #fff;
+    padding: 5px 10px 5px 10px;
+    background-color: rgb(121, 120, 120);
+    transition: background-color 1s, color 1s;
+    cursor: pointer;
+    font-family: 'Prosto One', cursive;
+}
+
+.filter-button:hover {
+    background-color: black;
+    color: white;
+}
+
+.filter-button:active {
+    opacity: 0.7;
 }
 
 .list {
@@ -42,59 +113,46 @@
     margin: 40px;
 }
 
+.list-artist {
+    list-style:none;
+    text-transform: uppercase;
+}
+
 .link {
     text-decoration: none
 }
 
 .center {
     margin: auto;
-    width: 78%;
+    width: 90%;
     padding-left: 10%;
 }
 
-.filter {
+.back-button {
     border-top-right-radius: 20px;
     border-bottom-left-radius: 20px;
-    display:inline-block;
-    font-size: 15px;
-    color: #fff;
-    padding: 5px 10px 5px 10px;
-    background-color: rgb(121, 120, 120);
-    transition: background-color 1s, color 1s;
-    margin-right: 50px;
-} 
-
-.insert {
-    font-family: 'Prosto One', cursive;
-    color: rgb(121, 120, 120);
-}
-
-.filter-button {
-    border-top-right-radius: 20px;
-    border-bottom-left-radius: 20px;
-    display:inline-block;
-    font-size: 15px;
+    font-size: 20px;
     color: #fff;
     padding: 5px 10px 5px 10px;
     background-color: rgb(121, 120, 120);
     transition: background-color 1s, color 1s;
     cursor: pointer;
     font-family: 'Prosto One', cursive;
-    margin-left: 140px;
-  }
+    align-items: center;
+    display:inline;
+}
 
-.filter-button:hover {
+.back-button:hover {
     background-color: black;
     color: white;
-  }
+}
 
-.filter-button:active {
+.back-button:active{
     opacity: 0.7;
-  }
+}
 
-.image {
-    border-top-right-radius: 60px;
-    border-bottom-left-radius: 60px;
-    pointer-events: none;
-    padding: 5px 10px 5px 10px;
+.sticky {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
 }
