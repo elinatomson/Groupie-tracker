@@ -13,23 +13,12 @@
             <img class="logo" src="../static/logo.jpg">
             <form action="/filters/" method="GET" autocomplete="off">
                 <fieldset class="fieldset">
-                <legend>Filters</legend>
-                    <p class="filter">
-                    <input type="checkbox" name="CreationDate" id="CD">
-                    <label for="CD">Creation year</label>
-                    </p>
-                        <input class="insert" type="text" inputmode="numeric" name="CreationDateFrom" placeholder="From year">
-                        <input class="insert" type="text" inputmode="numeric" name="CreationDateTo" placeholder="To year">
-                    <br>
-                    <p class="filter">
-                    <input type="checkbox" name="FirstAlbumDate" id="FAD">
-                    <label for="FAD">First album date</label>
-                    </p>
-                        <input class="insert" type="text" name="FirstFrom" placeholder="dd-mm-yyyy">
-                        <input class="insert" type="text" name="FirstTo" placeholder="dd-mm-yyyy">
-                    <p>
+                <legend>Creation year</legend><br>
+                    <input class="insert" type="text" inputmode="numeric" name="CreationDateFrom" placeholder="From year">
+                    <input class="insert" type="text" inputmode="numeric" name="CreationDateTo" placeholder="To year"><br>
+                <p>
                     <input class="filter-button" type="submit" value="FILTER">
-                    </p>  
+                </p>  
                 </fieldset>
             </form>
         </div>

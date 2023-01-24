@@ -7,6 +7,7 @@
 * Open http://localhost:8080  
 * Evaluate our webpage design
 * To stop the server, click Ctrl + C in your terminal
+* All other groupie-tracker sub-tasks will be built on visualization version, that's why there is not search and all other filters options
 
 ## For auditing
 The audit questions are [here](https://github.com/01-edu/public/blob/master/subjects/groupie-tracker/visualizations/audit.md)

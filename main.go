@@ -8,7 +8,6 @@ import (
 	"net/http"
 	"strconv"
 	"strings"
-	"time"
 )
 
 const artistsURL = "https://groupietrackers.herokuapp.com/api/artists"
@@ -96,126 +95,42 @@ func artistHandler(w http.ResponseWriter, r *http.Request) {
 func filterHandler(w http.ResponseWriter, r *http.Request) {
 	var filteredArtist []Artist
 
-	//HTML-is kasutatavad
-	CreationDate := r.FormValue("CreationDate")
-	if CreationDate == "on" {
-		CreationDateFrom := r.FormValue("CreationDateFrom")
-		CreationDateTo := r.FormValue("CreationDateTo")
+	//for HTML
+	CreationDateFrom := r.FormValue("CreationDateFrom")
+	CreationDateTo := r.FormValue("CreationDateTo")
 
-		//kui väli jäetakse tühjaks
-		if CreationDateFrom == "" {
-			CreationDateFrom = "0"
-		}
-		if CreationDateTo == "" {
-			CreationDateTo = "2111"
-		}
+	//if the field is left empty
+	if CreationDateFrom == "" {
+		CreationDateFrom = "0"
+	}
+	if CreationDateTo == "" {
+		CreationDateTo = "2111"
+	}
 
-		//kirjutatud stringid peab intiks tegema
-		dateFrom, _ := strconv.Atoi(CreationDateFrom)
-		dateTo, _ := strconv.Atoi(CreationDateTo)
+	//strings to int
+	dateFrom, _ := strconv.Atoi(CreationDateFrom)
+	dateTo, _ := strconv.Atoi(CreationDateTo)
 
-		//aastate kirjapildi nõuded
-		if dateFrom > dateTo {
-			fmt.Fprint(w, "From year has to be earlier than to year")
-			return
-		}
-		if dateFrom < 0 || dateTo < 0 {
-			fmt.Fprint(w, "Years have to be positive numbers")
-			return
-		}
+	//conditions for the years
+	if dateFrom > dateTo {
+		fmt.Fprint(w, "From year has to be earlier than to year")
+		return
+	}
+	if dateFrom < 0 || dateTo < 0 {
+		fmt.Fprint(w, "Years have to be positive numbers")
+		return
+	}
 
-		//artisti aastaarvu kontrollimine
-		if len(artist) > 0 {
-			for _, value := range artist {
-				// kui sisestatud fromDatest on väiksem või võrdne CreationDate-st ja CreationDate on omakorda väiksem võrdne toDatest
-				if dateFrom <= value.CreationDate && value.CreationDate <= dateTo {
-					filteredArtist = append(filteredArtist, value)
-				}
+	//checking creation year of artists
+	if len(artist) > 0 {
+		for _, value := range artist {
+			if dateFrom <= value.CreationDate && value.CreationDate <= dateTo {
+				filteredArtist = append(filteredArtist, value)
 			}
 		}
 	}
-
-	//HTML-is kasutatavad
-	FirstAlbumDate := r.FormValue("FirstAlbumDate")
-	if FirstAlbumDate == "on" {
-		FirstAlbumDateFrom := r.FormValue("FirstFrom")
-		FirstAlbumDateTo := r.FormValue("FirstTo")
-
-		//kui väli jäetakse tühjaks
-		if FirstAlbumDateFrom == "" {
-			FirstAlbumDateFrom = "20-01-1000"
-		}
-		if FirstAlbumDateTo == "" {
-			FirstAlbumDateTo = "20-01-2111"
-		}
-
-		//kuupäevad sidekriipsuga splittimine
-		from := strings.Split(FirstAlbumDateFrom, "-")
-		to := strings.Split(FirstAlbumDateTo, "-")
-
-		//kuupäevade kirjapildi nõudeks 3 argumenti
-		if len(from) != 3 || len(to) != 3 {
-			fmt.Fprint(w, "The date is not in a correct form")
-			return
-		}
-
-		//artisti albumite kuupäevade kontrollimine
-		fr, _ := separationArray(from)
-		t, _ := separationArray(to)
-
-		if len(artist) > 0 {
-			for _, value := range artist {
-
-				FAD := strings.Split(value.FirstAlbum, "-") //artisti andmetest splitib kuupäeva sidekriipsudega
-				fad, _ := separationArray(FAD)
-
-				if comparison(fad, fr, t) {
-					filteredArtist = append(filteredArtist, value)
-				}
-			}
-		}
-
-	}
-
 	tmpl := template.Must(template.ParseFiles("templates/mainpage.html"))
 	tmpl.Execute(w, filteredArtist)
-}
-
-func separationArray(array []string) ([]int, bool) { //see func on natuke segane mulle
-	arrayInt := []int{}
-	for _, value := range array {
-		Int, err := strconv.Atoi(value)
-		if err != nil {
-			return []int{}, false
-		}
-		arrayInt = append(arrayInt, Int)
-	}
-	return arrayInt, true
-}
-
-func comparison(fad, fr, t []int) bool { //see func on natuke segane mulle
-	Fad := time.Month(fad[1])
-	from := time.Month(fr[1])
-	to := time.Month(t[1])
-
-	FAD := time.Date(fad[2], Fad, fad[0], 0, 0, 0, 0, time.UTC)
-	FROM := time.Date(fr[2], from, fr[0], 0, 0, 0, 0, time.UTC)
-	TO := time.Date(t[2], to, t[0], 0, 0, 0, 0, time.UTC)
-
-	From := FROM.Before(FAD)
-	To := TO.After(FAD)
-	EqualFrom := FROM.Equal(FAD)
-	EqualTo := TO.Equal(FAD)
-
-	if EqualFrom == true || EqualTo == true {
-		return true
-	}
-
-	if From == true && To == true {
-		return true
-	}
-
-	return false
 }
 
 func getArtists() {
