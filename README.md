@@ -7,17 +7,17 @@
 * Open http://localhost:8080  
 * Evaluate our webpage design
 * To stop the server, click Ctrl + C in your terminal
-* All other groupie-tracker sub-tasks will be built on visualization version, that's why there is not search and all other filters options
+
+* All other groupie-tracker sub-tasks will be built on visualization task, that's why there is no search opportunity and only one filter for testing
 
 ## For auditing
 The audit questions are [here](https://github.com/01-edu/public/blob/master/subjects/groupie-tracker/visualizations/audit.md)
 
 ## Project Description
 
-This is a website, where you can see bands information (name(s), image, in which year they began their activity, the date of their first album, members, their last and/or upcoming concert locations and dates and relations (link between all the other parts, artists, dates and locations).
+This is a website, where you can see bands information (name(s), image, in which year they began their activity, the date of their first album, members, their last and/or upcoming concert locations and dates.
 
-The main folder contains main.go file for server handling and for generating bands information.
-
+main.go file is for server handling and for generating bands information.
 Folder <code>templates</code> contains the html files for the server.
 Folder <code>static</code> contains the css file and images for the server.
 

@@ -14,12 +14,27 @@
             <form action="/filters/" method="GET" autocomplete="off">
                 <fieldset class="fieldset">
                 <legend>Creation year</legend><br>
-                    <input class="insert" type="text" inputmode="numeric" name="CreationDateFrom" placeholder="From year">
-                    <input class="insert" type="text" inputmode="numeric" name="CreationDateTo" placeholder="To year"><br>
+                    <input class="insert" type="text" inputmode="numeric" name="CreationDateFrom" placeholder="From year" required/>
+                    <input class="insert" type="text" inputmode="numeric" name="CreationDateTo" placeholder="To year" required/><br>
                 <p>
                     <input class="filter-button" type="submit" value="FILTER">
                 </p>  
                 </fieldset>
+                <div>  
+                    <input class="back-button" type="button" id="main" value="Back to main page" onclick="window.location = '/'"> 
+                </div>
+                <script>
+                    document.getElementById("main").style.visibility = "hidden";
+                    if (document.referrer.match('http://localhost:8080/')){
+                        document.getElementById("main").style.visibility = "visible";
+                    } 
+                    if (document.referrer.match('filters/')){
+                        document.getElementById("main").style.visibility = "hidden";
+                    } 
+                    if (document.referrer.match('artist/')){
+                        document.getElementById("main").style.visibility = "hidden";
+                    } 
+                </script>
             </form>
         </div>
         <div class="center">

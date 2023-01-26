@@ -33,9 +33,15 @@
                 {{end}}
                 <br>
         </div>
-        <div>
-            <input class="back-button" type="button" value="Back to the main page" onclick="window.location = '/'">
-            <input class="back-button" type="button" value="Back to the filter page" onclick="history.back()">
+        <div>  
+            <input class="back-button" type="button" id="filter" value="Back to filtered artists" onclick="history.back()"> <br>
+            <input class="back-button" type="button" value="Back to main page" onclick="window.location = '/'"> 
         </div>
+        <script>
+            document.getElementById("filter").style.visibility = "hidden";
+            if (document.referrer.match('filters/')){
+                document.getElementById("filter").style.visibility = "visible";
+            } 
+    </script>
     </body>
 </html>

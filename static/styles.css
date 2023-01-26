@@ -15,7 +15,8 @@
 }
 
 .logo {
-    margin-top: 2%;
+    margin-top: 5%;
+    margin-bottom: 5%;
     width: 400px;
     border-radius: 47%;
     border: 5px inset rgb(228, 227, 227);
@@ -96,6 +97,7 @@
     transition: background-color 1s, color 1s;
     cursor: pointer;
     font-family: 'Prosto One', cursive;
+    margin-left: 30%;
 }
 
 .filter-button:hover {
@@ -138,6 +140,7 @@
     transition: background-color 1s, color 1s;
     cursor: pointer;
     font-family: 'Prosto One', cursive;
+    margin-top: 10px;
     align-items: center;
     display:inline;
 }
