@@ -2,7 +2,7 @@
     background-color: black;
     color: #fff;
     text-align: center;
-    font-family: 'Prosto One', cursive;
+    font-family: 'Helvetica', sans-serif;
 }
 
 .background {
@@ -81,7 +81,7 @@
 } 
 
 .insert {
-    font-family: 'Prosto One', cursive;
+    font-family: 'Helvetica', sans-serif;
     color: rgb(121, 120, 120);
     font-size: 20px;
 }
@@ -96,7 +96,7 @@
     background-color: rgb(121, 120, 120);
     transition: background-color 1s, color 1s;
     cursor: pointer;
-    font-family: 'Prosto One', cursive;
+    font-family: 'Helvetica', sans-serif;
     margin-left: 30%;
 }
 
@@ -139,7 +139,7 @@
     background-color: rgb(121, 120, 120);
     transition: background-color 1s, color 1s;
     cursor: pointer;
-    font-family: 'Prosto One', cursive;
+    font-family: 'Helvetica', sans-serif;
     margin-top: 10px;
     align-items: center;
     display:inline;
