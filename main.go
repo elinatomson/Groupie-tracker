@@ -10,7 +10,10 @@ import (
 	"strings"
 )
 
-const artistsURL = "https://groupietrackers.herokuapp.com/api/artists"
+const (
+	artistsURL  = "https://groupietrackers.herokuapp.com/api/artists"
+	relationURL = "https://groupietrackers.herokuapp.com/api/relation"
+)
 
 type (
 	Artist struct {
@@ -23,6 +26,7 @@ type (
 		Locations    string   `json:"locations"`
 		ConcertDates string   `json:"concertDates"`
 		Relations    string   `json:"relations"`
+		PlacesDates  map[string][]string
 	}
 
 	Relation struct {
@@ -35,16 +39,11 @@ type (
 	}
 )
 
-// struct for the Artist page
-type artistPrint struct {
-	A Artist
-	R RelationsDetail
-}
-
 var artist []Artist
+var relation Relation
 
 func main() {
-	getArtists()
+	getData(artistsURL, relationURL)
 
 	fileServer := http.FileServer(http.Dir("./static/"))
 	http.Handle("/static/", http.StripPrefix("/static", fileServer))
@@ -76,20 +75,13 @@ func artistHandler(w http.ResponseWriter, r *http.Request) {
 	id := strings.TrimPrefix(r.URL.Path, "/artist/")
 	id1, err := strconv.Atoi(id)
 	if id1 > 52 {
-		fmt.Fprint(w, "Error 404, page not found")
+		fmt.Fprint(w, "Artist not found")
 		return
 	}
 	checkError(err)
 
-	var toPrint artistPrint
-	//artist detailed information
-	toPrint.A = artist[id1-1]
-	//concerts information. Taking the Relations URL from the concrete artist struct and using it in getRelations function
-	toPrint.R = getRelations(artist[id1-1].Relations)
-
 	tmpl := template.Must(template.ParseFiles("templates/artist.html"))
-	//artist info to the artist page
-	tmpl.Execute(w, toPrint)
+	tmpl.Execute(w, artist[id1-1])
 }
 
 func filterHandler(w http.ResponseWriter, r *http.Request) {
@@ -133,42 +125,37 @@ func filterHandler(w http.ResponseWriter, r *http.Request) {
 	tmpl.Execute(w, filteredArtist)
 }
 
-func getArtists() {
-	//takes the URL as the argument, and returns a response and error. For successful API calls, err will be non-nil
-	req, err := http.NewRequest("GET", artistsURL, nil)
+func getData(artistURL, relationURL string) ([]Artist, int) {
+
+	reqArtists, err := http.NewRequest("GET", artistsURL, nil)
 	checkError(err)
 
-	//send the request to receive the response from the API.
-	resp, err := http.DefaultClient.Do(req)
+	respArtists, err := http.DefaultClient.Do(reqArtists)
 	checkError(err)
-	//now we can display the data returned by the API. But we have to close the response body when finished with it.
-	defer resp.Body.Close()
+	defer respArtists.Body.Close()
 
-	// access the response body using the
-	body, err := ioutil.ReadAll(resp.Body)
+	body1, err := ioutil.ReadAll(respArtists.Body)
 	checkError(err)
 
-	//Convert response body to artist.
-	json.Unmarshal(body, &artist)
-}
+	json.Unmarshal(body1, &artist)
 
-func getRelations(url string) RelationsDetail {
-
-	//takes Relations URL as the argument, which was in the concrete Artist struct
-	req, err := http.NewRequest("GET", url, nil)
+	reqRelations, err := http.NewRequest("GET", relationURL, nil)
 	checkError(err)
 
-	resp, err := http.DefaultClient.Do(req)
+	respRelations, err := http.DefaultClient.Do(reqRelations)
 	checkError(err)
-	defer resp.Body.Close()
+	defer respRelations.Body.Close()
 
-	body, err := ioutil.ReadAll(resp.Body)
+	body2, err := ioutil.ReadAll(respRelations.Body)
 	checkError(err)
-	//using RelationsDetail struct, which is inside the Relations URL
-	var rel RelationsDetail
 
-	json.Unmarshal(body, &rel)
-	return rel
+	json.Unmarshal(body2, &relation)
+
+	for i, v := range relation.Index {
+		artist[i].PlacesDates = v.DatesLocations
+	}
+
+	return artist, http.StatusOK
 }
 
 func checkError(err error) {
