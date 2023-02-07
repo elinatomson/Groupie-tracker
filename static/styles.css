@@ -16,7 +16,7 @@
 
 .logo {
     margin-top: 5%;
-    margin-bottom: 5%;
+    margin-bottom: 7%;
     width: 400px;
     border-radius: 47%;
     border: 5px inset rgb(228, 227, 227);
@@ -36,8 +36,20 @@
     pointer-events: none;
 }
 
-.fieldset {
+.fieldset-search {
     width: 13%;
+    border-top-right-radius: 70px;
+    border-bottom-left-radius: 70px;
+    text-align: left;
+    font-size: 25px;
+    display: inline-block;
+    border: 5px inset rgb(228, 227, 227);
+    color: rgb(121, 120, 120);
+    margin-top: auto;
+}
+
+.fieldset-filter {
+    width: 22%;
     border-top-right-radius: 70px;
     border-bottom-left-radius: 70px;
     text-align: left;
@@ -86,7 +98,7 @@
     font-size: 20px;
 }
 
-.filter-button {
+.result-button {
     border-top-right-radius: 20px;
     border-bottom-left-radius: 20px;
     display:inline-block;
@@ -97,15 +109,15 @@
     transition: background-color 1s, color 1s;
     cursor: pointer;
     font-family: 'Prosto One';
-    margin-left: 30%;
+    border: none;
 }
 
-.filter-button:hover {
+.result-button:hover {
     background-color: black;
     color: white;
 }
 
-.filter-button:active {
+.result-button:active {
     opacity: 0.7;
 }
 
@@ -158,4 +170,41 @@
     position: -webkit-sticky;
     position: sticky;
     top: 0;
+}
+
+.radio {
+    display: inline-flex;
+    overflow: hidden;
+    border: 1px solid rgb(121, 120, 120);
+    border-radius: 50px;
+    margin-bottom: 5%;
+}
+
+.radio_input {
+    display: none;
+}
+
+.radio_label {
+    padding: 8px 14px;
+    font-size: 20px;
+    font-family: 'Prosto One', cursive;
+    color: rgb(121, 120, 120);
+    background-color: #fff;
+    cursor: pointer;
+    transition: background-color 1s, color 1s;
+}
+
+.radio_label:not(:last-of-type) {
+    border-right: 1px solid rgb(121, 120, 120);
+}
+
+.radio_input:checked + .radio_label {
+    background-color: rgb(121, 120, 120);
+    color: #fff;
+    opacity: 0.7;
+}
+
+.radio_label:hover {
+    background-color: rgb(121, 120, 120);
+    color: white;
 }

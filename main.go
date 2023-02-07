@@ -50,6 +50,7 @@ func main() {
 	http.HandleFunc("/", mainPageHandler)
 	http.HandleFunc("/artist/", artistHandler)
 	http.HandleFunc("/filters/", filterHandler)
+	http.HandleFunc("/search/", searchHandler)
 
 	fmt.Printf("Starting server at port 8080\nOpen http://localhost:8080\nUse Ctrl+C to close the port\n")
 	http.ListenAndServe(":8080", nil)
@@ -84,43 +85,126 @@ func artistHandler(w http.ResponseWriter, r *http.Request) {
 	tmpl.Execute(w, artist[id1-1])
 }
 
+func searchHandler(w http.ResponseWriter, r *http.Request) {
+	searched := r.FormValue("searched")
+	data := artist
+
+	if searched != "" {
+		data = search(searched)
+	}
+
+	tmpl := template.Must(template.ParseFiles("templates/mainpage.html"))
+	tmpl.Execute(w, data)
+}
+
 func filterHandler(w http.ResponseWriter, r *http.Request) {
+
 	var filteredArtist []Artist
 
-	//for HTML
-	CreationDateFrom := r.FormValue("CreationDateFrom")
-	CreationDateTo := r.FormValue("CreationDateTo")
+	//filter for creation year
+	CreationDate := r.FormValue("CreationDate")
+	if CreationDate == "on" {
+		CreationDateFrom := r.FormValue("CreationDateFrom")
+		CreationDateTo := r.FormValue("CreationDateTo")
 
-	//if the field is left empty
-	if CreationDateFrom == "" {
-		CreationDateFrom = "0"
-	}
-	if CreationDateTo == "" {
-		CreationDateTo = "2111"
-	}
+		if CreationDateFrom == "" {
+			CreationDateFrom = "1958"
+		}
+		if CreationDateTo == "" {
+			CreationDateTo = "2015"
+		}
 
-	//strings to int
-	dateFrom, _ := strconv.Atoi(CreationDateFrom)
-	dateTo, _ := strconv.Atoi(CreationDateTo)
+		CDF, _ := strconv.Atoi(CreationDateFrom)
+		CDT, _ := strconv.Atoi(CreationDateTo)
 
-	//conditions for the years
-	if dateFrom > dateTo {
-		fmt.Fprint(w, "From year has to be earlier than to year")
-		return
-	}
-	if dateFrom < 0 || dateTo < 0 {
-		fmt.Fprint(w, "Years have to be positive numbers")
-		return
-	}
+		if CDF > CDT {
+			fmt.Fprint(w, "From year has to be earlier than to year")
+			return
+		}
+		if CDF < 0 || CDT < 0 {
+			fmt.Fprint(w, "Inserted year numbers have to be positive numbers")
+			return
+		}
 
-	//checking creation year of artists
-	if len(artist) > 0 {
-		for _, value := range artist {
-			if dateFrom <= value.CreationDate && value.CreationDate <= dateTo {
-				filteredArtist = append(filteredArtist, value)
+		if len(artist) > 0 {
+			for _, value := range artist {
+				if CDF <= value.CreationDate && value.CreationDate <= CDT {
+					filteredArtist = append(filteredArtist, value)
+				}
 			}
 		}
 	}
+
+	//filter for the year of first album
+	FirstAlbum := r.FormValue("FirstAlbum")
+	if FirstAlbum == "on" {
+		FirstAlbumFrom := r.FormValue("FirstAlbumFrom")
+		FirstAlbumTo := r.FormValue("FirstAlbumTo")
+
+		if FirstAlbumFrom == "" {
+			FirstAlbumFrom = "1985"
+		}
+		if FirstAlbumTo == "" {
+			FirstAlbumTo = "2025"
+		}
+
+		yearFrom, _ := strconv.Atoi(FirstAlbumFrom)
+		yearTo, _ := strconv.Atoi(FirstAlbumTo)
+
+		if yearFrom > yearTo {
+			fmt.Fprint(w, "From year has to be earlier than to year")
+			return
+		}
+		if yearFrom < 0 || yearTo < 0 {
+			fmt.Fprint(w, "Inserted year numbers have to be positive numbers")
+			return
+		}
+
+		if len(artist) > 0 {
+			for _, value := range artist {
+				FA := strings.Split(value.FirstAlbum, "-")
+				fa, _ := separationArray(FA)
+				if yearFrom <= fa[2] && fa[2] <= yearTo {
+					filteredArtist = append(filteredArtist, value)
+				}
+			}
+		}
+	}
+
+	//filter for number of members
+	NumberOfMembers := r.FormValue("NumberOfMembers")
+	if NumberOfMembers == "on" {
+		NumberOfMembers2 := r.FormValue("NumberOfMembers2")
+
+		NOM, _ := strconv.Atoi(NumberOfMembers2)
+
+		if len(artist) > 0 {
+			for _, value := range artist {
+				if NOM == len(value.Members) {
+					filteredArtist = append(filteredArtist, value)
+				}
+			}
+		}
+	}
+
+	//filter for locations
+	LocationOfConcerts := r.FormValue("LocationOfConcerts")
+	if LocationOfConcerts == "on" {
+		LocationOfConcertsValue := r.FormValue("LOC")
+
+		if LocationOfConcertsValue != "" {
+			if len(artist) > 0 {
+				for _, value := range artist {
+					for j := range value.PlacesDates {
+						if caseIns(j, LocationOfConcertsValue) {
+							filteredArtist = append(filteredArtist, value)
+						}
+					}
+				}
+			}
+		}
+	}
+
 	tmpl := template.Must(template.ParseFiles("templates/mainpage.html"))
 	tmpl.Execute(w, filteredArtist)
 }
@@ -156,6 +240,63 @@ func getData(artistURL, relationURL string) ([]Artist, int) {
 	}
 
 	return artist, http.StatusOK
+}
+
+func search(search_input string) []Artist {
+	result, _ := getData(artistsURL, relationURL)
+	var data []Artist
+
+	for band := range result {
+		if caseIns(result[band].Name, search_input) {
+			data = append(data, result[band])
+			continue
+		}
+
+		for j := range result[band].PlacesDates {
+			if caseIns(j, search_input) {
+				data = append(data, result[band])
+				continue
+			}
+		}
+
+		if search_input == result[band].FirstAlbum {
+			data = append(data, result[band])
+			continue
+		}
+
+		if search_input == strconv.Itoa(result[band].CreationDate) {
+			data = append(data, result[band])
+			continue
+		}
+		for j := range result[band].Members {
+			if caseIns(result[band].Members[j], search_input) {
+				data = append(data, result[band])
+				continue
+			}
+		}
+	}
+	return data
+}
+
+// first album date into integer array
+func separationArray(array []string) ([]int, bool) {
+	arrayInt := []int{}
+	for _, value := range array {
+		Int, err := strconv.Atoi(value)
+		if err != nil {
+			return []int{}, false
+		}
+		arrayInt = append(arrayInt, Int)
+	}
+	return arrayInt, true
+}
+
+// handling search input as case-insensitive
+func caseIns(search_input, result string) bool {
+	return strings.Contains(
+		strings.ToLower(search_input),
+		strings.ToLower(result),
+	)
 }
 
 func checkError(err error) {

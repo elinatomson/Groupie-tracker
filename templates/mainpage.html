@@ -11,18 +11,85 @@
     <body class="body">
         <div class="background">
             <img class="logo" src="../static/logo.JPG">
+            <form action="/search/" method="GET" autocomplete="off">
+                <fieldset class="fieldset-search">
+                    <legend>Search-bar</legend>
+                        <div>
+                            <input class="insert" type="text" id="search" name="searched" placeholder="Search..." list="search-list">
+                        </div><br>
+                        <div>
+                            <input class="result-button" type="submit" value="SEARCH">
+                        </div>
+                        <datalist id="search-list">
+                            {{range .}}
+                                <option value="{{.Name}}">{{.Name}} - artist/band</option>>
+                            {{range .Members}}
+                                <option value="{{.}}">{{.}}  - member</option>
+                            {{end}}
+                                <option value="{{.CreationDate}}">{{.CreationDate}} - creation date</option>
+                                <option value="{{.FirstAlbum}}">{{.FirstAlbum}} - first album</option>
+                            {{range $key, $value := .PlacesDates}}
+                            <option value="{{$key}}">{{$key}} - location</option>
+                            {{end}}
+                            {{end}}
+                        </datalist>
+                    </fieldset>
+                </form>
             <form action="/filters/" method="GET" autocomplete="off">
-                <fieldset class="fieldset">
-                <legend>Creation year</legend><br>
-                    <input class="insert" type="text" inputmode="numeric" name="CreationDateFrom" placeholder="From year" required/>
-                    <input class="insert" type="text" inputmode="numeric" name="CreationDateTo" placeholder="To year" required/><br>
-                <p>
-                    <input class="filter-button" type="submit" value="FILTER">
-                </p>  
+                <fieldset class="fieldset-filter">
+                    <legend>Filters</legend><br>
+                    <input type="checkbox" name="CreationDate" id="CD">
+                    <label for="FA">Creation Date</label>
+                        <div>
+                            <input class="insert" type="text" inputmode="numeric" name="CreationDateFrom" placeholder="From year">
+                            <input class="insert" type="text" inputmode="numeric" name="CreationDateTo" placeholder="To year"> 
+                        </div><br>
+                    <input type="checkbox" name="FirstAlbum" id="FA">
+                    <label for="FA">First album</label>
+                        <div>
+                            <input class="insert" type="text" inputmode="numeric" name="FirstAlbumFrom" placeholder="From year">
+                            <input class="insert" type="text" inputmode="numeric" name="FirstAlbumTo" placeholder="To year"> 
+                        </div><br>
+                    <input type="checkbox" name="LocationOfConcerts" id="LOC">
+                    <label for="LOC">Location of concerts</label>
+                        <div>
+                            <input class="insert" type="text" name="LOC" list="Data" placeholder="Location">
+                        </div><br>
+                    <input type="checkbox" name="NumberOfMembers" id="NOM">
+                    <label for="NOM">Number of members</label>
+                        <div class="radio">
+                            <input class="radio_input" type="radio" name="NumberOfMembers2" id="1" value="1">
+                            <label class="radio_label" for="1">1</label>
+                            <input class="radio_input" type="radio" name="NumberOfMembers2" id="2" value="2">
+                            <label class="radio_label" for="2">2</label>
+                            <input class="radio_input" type="radio" name="NumberOfMembers2" id="3" value="3">
+                            <label class="radio_label" for="3">3</label>
+                            <input class="radio_input" type="radio" name="NumberOfMembers2" id="4" value="4">
+                            <label class="radio_label" for="4">4</label>
+                            <input class="radio_input" type="radio" name="NumberOfMembers2" id="5" value="5">
+                            <label class="radio_label" for="5">5</label>
+                            <input class="radio_input" type="radio" name="NumberOfMembers2" id="6" value="6">
+                            <label class="radio_label" for="6">6</label>
+                            <input class="radio_input" type="radio" name="NumberOfMembers2" id="7" value="7">
+                            <label class="radio_label" for="7">7</label>
+                            <input class="radio_input" type="radio" name="NumberOfMembers2" id="8" value="8">
+                            <label class="radio_label" for="8">8</label>
+                        </div><br>
+                    <div>
+                    <input class="result-button" type="submit" value="FILTER">
+                    </div>
+                            <datalist id="Data">
+                            {{ range .}}
+                                {{ range $key, $value := .PlacesDates }}
+                                    <option value="{{$key}}">{{$key}} - location ></option>
+                                {{ end }}
+                            {{ end }}
+                            </datalist>
                 </fieldset>
                 <div>  
                     <input class="back-button" type="button" id="main" value="Back to main page" onclick="window.location = '/'"> 
                 </div>
+            </form>
                 <script>
                     document.getElementById("main").style.visibility = "hidden";
                     if (document.referrer.match('http://localhost:8080/')){
@@ -30,12 +97,14 @@
                     } 
                     if (document.referrer.match('filters/')){
                         document.getElementById("main").style.visibility = "hidden";
-                    } 
+                    }
+                    if (document.referrer.match('search/')){
+                            document.getElementById("main").style.visibility = "hidden";
+                        }  
                     if (document.referrer.match('artist/')){
                         document.getElementById("main").style.visibility = "hidden";
                     } 
                 </script>
-            </form>
         </div>
         <div class="center">
             {{range .}}
