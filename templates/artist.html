@@ -37,6 +37,7 @@
             <input class="back-button" type="button" id="filter" value="Back to result page" onclick="history.back()"> <br>
             <input class="back-button" type="button" value="Back to main page" onclick="window.location = '/'"> 
         </div>
+        <div>  
         <script>
             document.getElementById("filter").style.visibility = "hidden";
             if (document.referrer.match('filters/')){
@@ -44,6 +45,45 @@
             } 
             if (document.referrer.match('search/')){
                 document.getElementById("filter").style.visibility = "visible";
+            }
     </script>
+            </div>
+            <div> 
+                <script
+                src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBehVaCy8eYMLQH-7njOTjfli9edCgYuWU&callback=initMap"
+                type="text/javascript"
+                defer>
+                </script>
+                <script type="text/javascript"> 
+
+                var address = 'London, UK';
+                function initMap() {
+                var map = new google.maps.Map(document.getElementById('map'), { 
+                    mapId: "400db8c8468f918c",
+                    zoom: 1,
+                    center: {lat: 0, lng: 80},
+                });
+
+                var geocoder = new google.maps.Geocoder();
+
+                geocoder.geocode({
+                    'address': address
+                }, 
+                function(results, status) {
+                    if(status == google.maps.GeocoderStatus.OK) {
+                        new google.maps.Marker({
+                            position: results[0].geometry.location,
+                            map: map
+                        });
+                        map.setCenter(results[0].geometry.location);
+                        }
+                    });
+                };
+                window.initMap = initMap;
+                </script>
+                <div id="map" class="map"></div>
+                </div>  
+                </script>
+
     </body>
 </html>

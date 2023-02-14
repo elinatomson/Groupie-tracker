@@ -37,7 +37,7 @@
 }
 
 .fieldset-search {
-    width: 13%;
+    width: 12%;
     border-top-right-radius: 70px;
     border-bottom-left-radius: 70px;
     text-align: left;
@@ -49,7 +49,7 @@
 }
 
 .fieldset-filter {
-    width: 22%;
+    width: 27%;
     border-top-right-radius: 70px;
     border-bottom-left-radius: 70px;
     text-align: left;
@@ -58,6 +58,7 @@
     border: 5px inset rgb(228, 227, 227);
     color: rgb(121, 120, 120);
     margin-top: auto;
+    padding-left: 2%;
 }
 
 .fieldset-artist {
@@ -98,6 +99,14 @@
     font-size: 20px;
 }
 
+.insert-search {
+    font-family: 'Prosto One';
+    color: rgb(121, 120, 120);
+    font-size: 20px;
+    width: 280px;
+}
+
+
 .result-button {
     border-top-right-radius: 20px;
     border-bottom-left-radius: 20px;
@@ -110,6 +119,7 @@
     cursor: pointer;
     font-family: 'Prosto One';
     border: none;
+    margin-top: 3%;
 }
 
 .result-button:hover {
@@ -177,7 +187,6 @@
     overflow: hidden;
     border: 1px solid rgb(121, 120, 120);
     border-radius: 50px;
-    margin-bottom: 5%;
 }
 
 .radio_input {
@@ -185,8 +194,8 @@
 }
 
 .radio_label {
-    padding: 8px 14px;
-    font-size: 20px;
+    padding: 5px 12px;
+    font-size: 18px;
     font-family: 'Prosto One', cursive;
     color: rgb(121, 120, 120);
     background-color: #fff;
@@ -201,6 +210,7 @@
 .radio_input:checked + .radio_label {
     background-color: rgb(121, 120, 120);
     color: #fff;
+    border-color: #fff;
     opacity: 0.7;
 }
 
@@ -208,3 +218,36 @@
     background-color: rgb(121, 120, 120);
     color: white;
 }
+
+.map {
+    height: 330px;
+    width: 510px;
+    border-top-right-radius: 70px;
+    border-bottom-left-radius: 70px;
+    border: 5px inset rgb(228, 227, 227);
+    display:inline-block;
+    margin-top: 1.5%;
+}
+
+.filter1 {
+    width: 50%;
+    float:left;
+}
+
+.filter2 {
+    width: 50%;
+    float:right;
+}
+
+.filter3 {
+    margin-top: 2%;
+    width: 50%;
+    float:left;
+}
+
+.filter4 {
+    margin-top: 2%;
+    width: 50%;
+    float:right;
+}
+

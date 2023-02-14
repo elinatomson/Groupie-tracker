@@ -1,5 +1,5 @@
 <!doctype html>
-<html>
+<html lang="eng">
     <head>
         <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet"  href="../static/styles.css" type="text/css">
@@ -15,8 +15,8 @@
                 <fieldset class="fieldset-search">
                     <legend>Search-bar</legend>
                         <div>
-                            <input class="insert" type="text" id="search" name="searched" placeholder="Search..." list="search-list">
-                        </div><br>
+                            <input class="insert-search" type="text" id="search" name="searched" placeholder="Search..." list="search-list">
+                        </div>
                         <div>
                             <input class="result-button" type="submit" value="SEARCH">
                         </div>
@@ -35,57 +35,61 @@
                         </datalist>
                     </fieldset>
                 </form>
-            <form action="/filters/" method="GET" autocomplete="off">
-                <fieldset class="fieldset-filter">
-                    <legend>Filters</legend><br>
-                    <input type="checkbox" name="CreationDate" id="CD">
-                    <label for="FA">Creation Date</label>
+                <form action="/filters/" method="GET" autocomplete="off">
+                    <fieldset class="fieldset-filter">
+                    <legend>Filters</legend>
+                    <div class="filter1">
+                        <label>Creation Date</label>
+                            <div>
+                                <input class="insert" type="text" inputmode="numeric" name="CreationDateFrom" placeholder="From year">
+                                <input class="insert" type="text" inputmode="numeric" name="CreationDateTo" placeholder="To year"> 
+                            </div>
+                        </div>
+                        <div class="filter2">
+                        <label>First album</label>
+                            <div>
+                                <input class="insert" type="text" inputmode="numeric" name="FirstAlbumFrom" placeholder="From year">
+                                <input class="insert" type="text" inputmode="numeric" name="FirstAlbumTo" placeholder="To year"> 
+                            </div>
+                        </div>
+                        <div class="filter3">
+                        <label>Location of concerts</label>
+                            <div>
+                                <input class="insert" type="text" name="LOC" list="Data" placeholder="Location">
+                            </div>
+                        </div>
+                        <div class="filter4">
+                        <label>Number of members</label>
+                            <div class="radio">
+                                <input class="radio_input" type="checkbox" name="NoM1" id="1" value="1">
+                                <label class="radio_label" for="1">1</label>
+                                <input class="radio_input" type="checkbox" name="NoM2" id="2" value="2">
+                                <label class="radio_label" for="2">2</label>
+                                <input class="radio_input" type="checkbox" name="NoM3" id="3" value="3">
+                                <label class="radio_label" for="3">3</label>
+                                <input class="radio_input" type="checkbox" name="NoM4" id="4" value="4">
+                                <label class="radio_label" for="4">4</label>
+                                <input class="radio_input" type="checkbox" name="NoM5" id="5" value="5">
+                                <label class="radio_label" for="5">5</label>
+                                <input class="radio_input" type="checkbox" name="NoM6" id="6" value="6">
+                                <label class="radio_label" for="6">6</label>
+                                <input class="radio_input" type="checkbox" name="NoM7" id="7" value="7">
+                                <label class="radio_label" for="7">7</label>
+                                <input class="radio_input" type="checkbox" name="NoM8" id="8" value="8">
+                                <label class="radio_label" for="8">8</label>
+                            </div>
+                        </div>
                         <div>
-                            <input class="insert" type="text" inputmode="numeric" name="CreationDateFrom" placeholder="From year">
-                            <input class="insert" type="text" inputmode="numeric" name="CreationDateTo" placeholder="To year"> 
-                        </div><br>
-                    <input type="checkbox" name="FirstAlbum" id="FA">
-                    <label for="FA">First album</label>
-                        <div>
-                            <input class="insert" type="text" inputmode="numeric" name="FirstAlbumFrom" placeholder="From year">
-                            <input class="insert" type="text" inputmode="numeric" name="FirstAlbumTo" placeholder="To year"> 
-                        </div><br>
-                    <input type="checkbox" name="LocationOfConcerts" id="LOC">
-                    <label for="LOC">Location of concerts</label>
-                        <div>
-                            <input class="insert" type="text" name="LOC" list="Data" placeholder="Location">
-                        </div><br>
-                    <input type="checkbox" name="NumberOfMembers" id="NOM">
-                    <label for="NOM">Number of members</label>
-                        <div class="radio">
-                            <input class="radio_input" type="radio" name="NumberOfMembers2" id="1" value="1">
-                            <label class="radio_label" for="1">1</label>
-                            <input class="radio_input" type="radio" name="NumberOfMembers2" id="2" value="2">
-                            <label class="radio_label" for="2">2</label>
-                            <input class="radio_input" type="radio" name="NumberOfMembers2" id="3" value="3">
-                            <label class="radio_label" for="3">3</label>
-                            <input class="radio_input" type="radio" name="NumberOfMembers2" id="4" value="4">
-                            <label class="radio_label" for="4">4</label>
-                            <input class="radio_input" type="radio" name="NumberOfMembers2" id="5" value="5">
-                            <label class="radio_label" for="5">5</label>
-                            <input class="radio_input" type="radio" name="NumberOfMembers2" id="6" value="6">
-                            <label class="radio_label" for="6">6</label>
-                            <input class="radio_input" type="radio" name="NumberOfMembers2" id="7" value="7">
-                            <label class="radio_label" for="7">7</label>
-                            <input class="radio_input" type="radio" name="NumberOfMembers2" id="8" value="8">
-                            <label class="radio_label" for="8">8</label>
-                        </div><br>
-                    <div>
-                    <input class="result-button" type="submit" value="FILTER">
-                    </div>
-                            <datalist id="Data">
-                            {{ range .}}
-                                {{ range $key, $value := .PlacesDates }}
-                                    <option value="{{$key}}">{{$key}} - location ></option>
+                        <input class="result-button" type="submit" value="FILTER">
+                        </div>
+                                <datalist id="Data">
+                                {{ range .}}
+                                    {{ range $key, $value := .PlacesDates }}
+                                        <option value="{{$key}}">{{$key}} - location ></option>
+                                    {{ end }}
                                 {{ end }}
-                            {{ end }}
-                            </datalist>
-                </fieldset>
+                                </datalist>
+                    </fieldset>
                 <div>  
                     <input class="back-button" type="button" id="main" value="Back to main page" onclick="window.location = '/'"> 
                 </div>
