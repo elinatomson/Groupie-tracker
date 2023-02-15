@@ -20,7 +20,6 @@ func MainPageHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	tmpl := template.Must(template.ParseFiles("templates/mainpage.html"))
-	//all artists icons to the main page
 	tmpl.Execute(w, artist)
 }
 

@@ -46,44 +46,35 @@
             if (document.referrer.match('search/')){
                 document.getElementById("filter").style.visibility = "visible";
             }
-    </script>
-            </div>
-            <div> 
-                <script
-                src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBehVaCy8eYMLQH-7njOTjfli9edCgYuWU&callback=initMap"
-                type="text/javascript"
-                defer>
-                </script>
-                <script type="text/javascript"> 
-
-                var address = 'London, UK';
+        </script>
+        </div>
+        <div> 
+            <script
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBehVaCy8eYMLQH-7njOTjfli9edCgYuWU&callback=initMap"
+            type="text/javascript"
+            defer>
+            </script>
+            <script type="text/javascript"> 
                 function initMap() {
                 var map = new google.maps.Map(document.getElementById('map'), { 
                     mapId: "400db8c8468f918c",
                     zoom: 1,
-                    center: {lat: 0, lng: 80},
+                    center: {lat: 0, lng: 20},
                 });
 
                 var geocoder = new google.maps.Geocoder();
-
-                geocoder.geocode({
-                    'address': address
-                }, 
-                function(results, status) {
-                    if(status == google.maps.GeocoderStatus.OK) {
+                {{ range $val := .Locations }}
+                    geocoder.geocode({ address: {{$val}}}, (results, status) => {
                         new google.maps.Marker({
+                            map,
                             position: results[0].geometry.location,
-                            map: map
                         });
-                        map.setCenter(results[0].geometry.location);
-                        }
-                    });
-                };
+                        });
+                {{end}} 
+                }
                 window.initMap = initMap;
-                </script>
-                <div id="map" class="map"></div>
-                </div>  
-                </script>
-
+            </script>
+        <div id="map" class="map"></div>
+        </div>  
     </body>
 </html>

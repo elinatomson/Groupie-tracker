@@ -79,7 +79,7 @@ func GetData(artistURL, relationURL, locationURL string) ([]Artist, int) {
 	for i, v := range relation.Index {
 		artist[i].PlacesDates = v.DatesLocations
 	}
-	//geolocalizationi jaoks eraldi Locations andmete võtmine juurde lisatud
+
 	reqLocations, err := http.NewRequest("GET", locationURL, nil)
 	checkError(err)
 

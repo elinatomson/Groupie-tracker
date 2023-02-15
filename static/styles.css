@@ -49,7 +49,7 @@
 }
 
 .fieldset-filter {
-    width: 27%;
+    width: 40%;
     border-top-right-radius: 70px;
     border-bottom-left-radius: 70px;
     text-align: left;
@@ -221,7 +221,7 @@
 
 .map {
     height: 330px;
-    width: 510px;
+    width: 530px;
     border-top-right-radius: 70px;
     border-bottom-left-radius: 70px;
     border: 5px inset rgb(228, 227, 227);
