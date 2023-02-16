@@ -2,7 +2,7 @@
 
 
 ## How to use
-* Type in your terminal: go run server.go
+* Type in your terminal: go run main.go
 * In the Windows Security alert cklick "Allow access"
 * Open http://localhost:8080  
 * Evaluate our webpage design
