@@ -1,4 +1,4 @@
-package functions
+package handlers
 
 import (
 	"fmt"
@@ -8,7 +8,7 @@ import (
 	"strings"
 )
 
-func MainPageHandler(w http.ResponseWriter, r *http.Request) {
+func MainPage(w http.ResponseWriter, r *http.Request) {
 	if r.URL.Path != "/" {
 		w.WriteHeader(http.StatusNotFound)
 		fmt.Fprint(w, "Error 404, page not found")
@@ -23,9 +23,11 @@ func MainPageHandler(w http.ResponseWriter, r *http.Request) {
 	tmpl.Execute(w, artist)
 }
 
-func ArtistHandler(w http.ResponseWriter, r *http.Request) {
+func ArtistPage(w http.ResponseWriter, r *http.Request) {
 	id := strings.TrimPrefix(r.URL.Path, "/artist/")
 	id1, err := strconv.Atoi(id)
+
+	checkError(err)
 	if id1 > 52 {
 		fmt.Fprint(w, "Artist not found")
 		return
@@ -36,7 +38,7 @@ func ArtistHandler(w http.ResponseWriter, r *http.Request) {
 	tmpl.Execute(w, artist[id1-1])
 }
 
-func SearchHandler(w http.ResponseWriter, r *http.Request) {
+func Search(w http.ResponseWriter, r *http.Request) {
 	searched := r.FormValue("searched")
 	data := artist
 
@@ -48,7 +50,7 @@ func SearchHandler(w http.ResponseWriter, r *http.Request) {
 	tmpl.Execute(w, data)
 }
 
-func FilterHandler(w http.ResponseWriter, r *http.Request) {
+func Filter(w http.ResponseWriter, r *http.Request) {
 
 	var filteredArtist []Artist
 	filteredArtistInFilter := make(map[int]Artist)

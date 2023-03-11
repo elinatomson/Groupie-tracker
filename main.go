@@ -1,8 +1,9 @@
 package main
 
 import (
-	"Groupie-tracker/functions"
+	"Groupie-tracker/handlers"
 	"fmt"
+	"log"
 	"net/http"
 )
 
@@ -13,15 +14,15 @@ const (
 )
 
 func main() {
-	functions.GetData(artistsURL, relationURL, locationURL)
+	handlers.GetData(artistsURL, relationURL, locationURL)
 
 	fileServer := http.FileServer(http.Dir("./static/"))
 	http.Handle("/static/", http.StripPrefix("/static", fileServer))
-	http.HandleFunc("/", functions.MainPageHandler)
-	http.HandleFunc("/artist/", functions.ArtistHandler)
-	http.HandleFunc("/filters/", functions.FilterHandler)
-	http.HandleFunc("/search/", functions.SearchHandler)
+	http.HandleFunc("/", handlers.MainPage)
+	http.HandleFunc("/artist/", handlers.ArtistPage)
+	http.HandleFunc("/filters/", handlers.Filter)
+	http.HandleFunc("/search/", handlers.Search)
 
 	fmt.Printf("Starting server at port 8080\nOpen http://localhost:8080\nUse Ctrl+C to close the port\n")
-	http.ListenAndServe(":8080", nil)
+	log.Fatal(http.ListenAndServe(":8080", nil))
 }
