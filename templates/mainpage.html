@@ -8,119 +8,128 @@
         <link href="https://fonts.googleapis.com/css2?family=Prosto+One&display=swap" rel="stylesheet">
         <title>Groupie-Tracker</title>
     </head>
-    <body class="body">
-        <div class="background">
-            <img class="logo" src="../static/logo.JPG">
+    <body>
+        <header class="background">
+            <a href="/">
+                <img class="logo" src="../static/logo.JPG" alt="WebPage Logo">
+            </a>
+        </header>
+        <main>
             <form action="/search/" method="GET" autocomplete="off">
                 <fieldset class="fieldset-search">
                     <legend>Search-bar</legend>
-                        <div>
-                            <input class="insert-search" type="text" id="search" name="searched" placeholder="Search..." list="search-list">
-                        </div>
-                        <div>
-                            <input class="result-button" type="submit" value="SEARCH">
-                        </div>
-                        <datalist id="search-list">
-                            {{range .}}
-                                <option value="{{.Name}}">{{.Name}} - artist/band</option>>
-                            {{range .Members}}
-                                <option value="{{.}}">{{.}}  - member</option>
-                            {{end}}
-                                <option value="{{.CreationDate}}">{{.CreationDate}} - creation date</option>
-                                <option value="{{.FirstAlbum}}">{{.FirstAlbum}} - first album</option>
-                            {{range $key, $value := .PlacesDates}}
-                            <option value="{{$key}}">{{$key}} - location</option>
-                            {{end}}
-                            {{end}}
-                        </datalist>
-                    </fieldset>
-                </form>
-                <form action="/filters/" method="GET" autocomplete="off">
-                    <fieldset class="fieldset-filter">
+                    <div>
+                        <input class="insert-search" type="text" id="search" name="searched" placeholder="Search..." list="search-list">
+                    </div>
+                    <div>
+                        <input class="result-button" type="submit" value="SEARCH">
+                    </div>
+                    <datalist id="search-list">
+                        {{range .}}
+                            <option value="{{.Name}}">{{.Name}} - artist/band</option>>
+                        {{range .Members}}
+                            <option value="{{.}}">{{.}}  - member</option>
+                        {{end}}
+                            <option value="{{.CreationDate}}">{{.CreationDate}} - creation date</option>
+                            <option value="{{.FirstAlbum}}">{{.FirstAlbum}} - first album</option>
+                        {{range $key, $value := .PlacesDates}}
+                        <option value="{{$key}}">{{$key}} - location</option>
+                        {{end}}
+                        {{end}}
+                    </datalist>
+                </fieldset>
+            </form>
+            <form action="/filters/" method="GET" autocomplete="off">
+                <fieldset class="fieldset-filter">
                     <legend>Filters</legend>
                     <div>
                         <label>Creation Date</label>
-                            <div>
-                                <input class="insert" type="text" inputmode="numeric" name="CreationDateFrom" placeholder="From year">
-                                <input class="insert" type="text" inputmode="numeric" name="CreationDateTo" placeholder="To year"> 
-                            </div>
-                        </div>
                         <div>
+                            <input class="insert" type="text" inputmode="numeric" name="CreationDateFrom" placeholder="From year">
+                            <input class="insert" type="text" inputmode="numeric" name="CreationDateTo" placeholder="To year"> 
+                        </div>
+                    </div>
+                    <div>
                         <label>First album</label>
-                            <div>
-                                <input class="insert" type="text" inputmode="numeric" name="FirstAlbumFrom" placeholder="From year">
-                                <input class="insert" type="text" inputmode="numeric" name="FirstAlbumTo" placeholder="To year"> 
-                            </div>
-                        </div>
                         <div>
+                            <input class="insert" type="text" inputmode="numeric" name="FirstAlbumFrom" placeholder="From year">
+                            <input class="insert" type="text" inputmode="numeric" name="FirstAlbumTo" placeholder="To year"> 
+                        </div>
+                    </div>
+                    <div>
                         <label>Location of concerts</label>
-                            <div>
-                                <input class="insert" type="text" name="LOC" list="Data" placeholder="Location">
-                            </div>
-                        </div>
                         <div>
+                            <input class="insert" type="text" name="LOC" list="Data" placeholder="Location">
+                        </div>
+                    </div>
+                    <div>
                         <label>Number of members</label>
-                            <div class="radio">
-                                <input class="radio_input" type="checkbox" name="NoM1" id="1" value="1">
-                                <label class="radio_label" for="1">1</label>
-                                <input class="radio_input" type="checkbox" name="NoM2" id="2" value="2">
-                                <label class="radio_label" for="2">2</label>
-                                <input class="radio_input" type="checkbox" name="NoM3" id="3" value="3">
-                                <label class="radio_label" for="3">3</label>
-                                <input class="radio_input" type="checkbox" name="NoM4" id="4" value="4">
-                                <label class="radio_label" for="4">4</label>
-                                <input class="radio_input" type="checkbox" name="NoM5" id="5" value="5">
-                                <label class="radio_label" for="5">5</label>
-                                <input class="radio_input" type="checkbox" name="NoM6" id="6" value="6">
-                                <label class="radio_label" for="6">6</label>
-                                <input class="radio_input" type="checkbox" name="NoM7" id="7" value="7">
-                                <label class="radio_label" for="7">7</label>
-                                <input class="radio_input" type="checkbox" name="NoM8" id="8" value="8">
-                                <label class="radio_label" for="8">8</label>
-                            </div>
+                        <div class="radio">
+                            <input class="radio_input" type="checkbox" name="NoM1" id="1" value="1">
+                            <label class="radio_label" for="1">1</label>
+                            <input class="radio_input" type="checkbox" name="NoM2" id="2" value="2">
+                            <label class="radio_label" for="2">2</label>
+                            <input class="radio_input" type="checkbox" name="NoM3" id="3" value="3">
+                            <label class="radio_label" for="3">3</label>
+                            <input class="radio_input" type="checkbox" name="NoM4" id="4" value="4">
+                            <label class="radio_label" for="4">4</label>
+                            <input class="radio_input" type="checkbox" name="NoM5" id="5" value="5">
+                            <label class="radio_label" for="5">5</label>
+                            <input class="radio_input" type="checkbox" name="NoM6" id="6" value="6">
+                            <label class="radio_label" for="6">6</label>
+                            <input class="radio_input" type="checkbox" name="NoM7" id="7" value="7">
+                            <label class="radio_label" for="7">7</label>
+                            <input class="radio_input" type="checkbox" name="NoM8" id="8" value="8">
+                            <label class="radio_label" for="8">8</label>
                         </div>
-                        <div>
+                    </div>
+                    <div>
                         <input class="result-button" type="submit" value="FILTER">
-                        </div>
-                                <datalist id="Data">
-                                {{ range .}}
-                                    {{ range $key, $value := .PlacesDates }}
-                                        <option value="{{$key}}">{{$key}} - location ></option>
-                                    {{ end }}
-                                {{ end }}
-                                </datalist>
-                    </fieldset>
+                    </div>
+                    <datalist id="Data">
+                    {{ range .}}
+                        {{ range $key, $value := .PlacesDates }}
+                            <option value="{{$key}}">{{$key}} - location ></option>
+                        {{ end }}
+                    {{ end }}
+                    </datalist>
+                </fieldset>
                 <div>  
                     <input class="back-button" type="button" id="main" value="Back to main page" onclick="window.location = '/'"> 
                 </div>
             </form>
-                <script>
+            <div class="artists">
+                {{range .}}
+                <li class="list">
+                    <a class="link" href="/artist/{{.ID}}">
+                        <fieldset class="fieldset-artist">
+                            <legend>{{.Name}}</legend>
+                            <img class="image" src="{{.Image}}">
+                        </fieldset>
+                    </a>
+                </li>
+                {{end}}
+            </div>
+            <script>
+                document.getElementById("main").style.visibility = "hidden";
+                if (document.referrer.match('http://localhost:8080/')){
+                    document.getElementById("main").style.visibility = "visible";
+                } 
+                if (document.referrer.match('filters/')){
                     document.getElementById("main").style.visibility = "hidden";
-                    if (document.referrer.match('http://localhost:8080/')){
-                        document.getElementById("main").style.visibility = "visible";
-                    } 
-                    if (document.referrer.match('filters/')){
+                }
+                if (document.referrer.match('search/')){
                         document.getElementById("main").style.visibility = "hidden";
-                    }
-                    if (document.referrer.match('search/')){
-                            document.getElementById("main").style.visibility = "hidden";
-                        }  
-                    if (document.referrer.match('artist/')){
-                        document.getElementById("main").style.visibility = "hidden";
-                    } 
-                </script>
-        </div>
-        <div class="center">
-            {{range .}}
-            <li class="list">
-                <a class="link" href="/artist/{{.ID}}">
-                <fieldset class="fieldset-artist">
-                    <legend>{{.Name}}</legend>
-                    <img class="image" src="{{.Image}}">
-                </fieldset>
-                </a>
-            </li>
-            {{end}}
-        </div>
+                    }  
+                if (document.referrer.match('artist/')){
+                    document.getElementById("main").style.visibility = "hidden";
+                } 
+            </script>
+        </main>
+        <footer>
+            <div>
+                <p><span>&#169;</span>Copyright Elina Tomson</p>
+            </div>
+        </footer>
     </body>
 </html>

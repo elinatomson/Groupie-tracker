@@ -8,74 +8,51 @@
         <link href="https://fonts.googleapis.com/css2?family=Prosto+One&display=swap" rel="stylesheet">
         <title>Artist</title>
     </head>
-    <body class="body">
-        <div class="sticky">
-            <img class="logo-artist" src="../static/logo.JPG">
+    <body>
+        <header class="sticky">
             <fieldset class="fieldset-artist">
                 <legend>{{.Name}}</legend>
                 <img class="image" src="{{.Image}}">
             </fieldset>
-        </div>
-        <div>
-            <h2>Members:</h2>
-                {{range .Members}}
-                <li class="list-artist">{{.}}</li>
-                {{end}}
-            <h2>Creation date:</h2> 
-                {{.CreationDate}}
-            <h2>First album:</h2>  
-                {{.FirstAlbum}}
-            <h2>Concerts:</h2>
-                {{range $key, $val := .PlacesDates}}
-                <li class="list-artist">{{$key}}: 
-                {{range $val }}  <li class="list-artist">{{.}}</li> {{end}} 
-                </li>
-                {{end}}
-                <br>
-        </div>
-        <div>  
-            <input class="back-button" type="button" id="filter" value="Back to result page" onclick="history.back()"> <br>
-            <input class="back-button" type="button" value="Back to main page" onclick="window.location = '/'"> 
-        </div>
-        <div>  
-        <script>
-            document.getElementById("filter").style.visibility = "hidden";
-            if (document.referrer.match('filters/')){
-                document.getElementById("filter").style.visibility = "visible";
-            } 
-            if (document.referrer.match('search/')){
-                document.getElementById("filter").style.visibility = "visible";
-            }
-        </script>
-        </div>
-        <div> 
-            <h2>Concert locations:</h2>
-            <script
-            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBehVaCy8eYMLQH-7njOTjfli9edCgYuWU&callback=initMap"
-            type="text/javascript"
-            defer>
-            </script>
-            <script type="text/javascript"> 
-                function initMap() {
-                var map = new google.maps.Map(document.getElementById('map'), { 
-                    mapId: "400db8c8468f918c",
-                    zoom: 1,
-                    center: {lat: 0, lng: 20},
-                });
-
-                var geocoder = new google.maps.Geocoder();
-                {{ range $val := .Locations }}
-                    geocoder.geocode({ address: {{$val}}}, (results, status) => {
-                        new google.maps.Marker({
-                            map,
-                            position: results[0].geometry.location,
-                        });
-                        });
-                {{end}} 
+        </header>
+        <main>
+            <div>
+                <h2>Members:</h2>
+                    {{range .Members}}
+                    <li class="list-artist">{{.}}</li>
+                    {{end}}
+                <h2>Creation date:</h2> 
+                    {{.CreationDate}}
+                <h2>First album:</h2>  
+                    {{.FirstAlbum}}
+                <h2>Concerts:</h2>
+                    {{range $key, $val := .PlacesDates}}
+                    <li class="list-artist">{{$key}}: 
+                    {{range $val }}  <li class="list-artist">{{.}}</li> {{end}} 
+                    </li>
+                    {{end}}
+                    <br>
+            </div>
+            <div>  
+                <input class="back-button" type="button" id="filter" value="Back to result page" onclick="history.back()"> <br>
+                <input class="back-button" type="button" value="Back to main page" onclick="window.location = '/'"> 
+            </div>
+            <div>  
+            <script>
+                document.getElementById("filter").style.visibility = "hidden";
+                if (document.referrer.match('filters/')){
+                    document.getElementById("filter").style.visibility = "visible";
+                } 
+                if (document.referrer.match('search/')){
+                    document.getElementById("filter").style.visibility = "visible";
                 }
-                window.initMap = initMap;
             </script>
-        <div id="map" class="map"></div>
-        </div>  
+            </div>
+        </main>
+        <footer>
+            <div>
+                <p><span>&#169;</span>Copyright Elina Tomson</p>
+            </div>
+        </footer>
     </body>
 </html>

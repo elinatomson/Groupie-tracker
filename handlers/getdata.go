@@ -2,7 +2,7 @@ package handlers
 
 import (
 	"encoding/json"
-	"io/ioutil"
+	"io"
 	"net/http"
 )
 
@@ -59,7 +59,7 @@ func GetData(artistURL, relationURL, locationURL string) ([]Artist, int) {
 	checkError(err)
 	defer respArtists.Body.Close()
 
-	body1, err := ioutil.ReadAll(respArtists.Body)
+	body1, err := io.ReadAll(respArtists.Body)
 	checkError(err)
 
 	json.Unmarshal(body1, &artist)
@@ -71,7 +71,7 @@ func GetData(artistURL, relationURL, locationURL string) ([]Artist, int) {
 	checkError(err)
 	defer respRelations.Body.Close()
 
-	body2, err := ioutil.ReadAll(respRelations.Body)
+	body2, err := io.ReadAll(respRelations.Body)
 	checkError(err)
 
 	json.Unmarshal(body2, &relation)
@@ -87,7 +87,7 @@ func GetData(artistURL, relationURL, locationURL string) ([]Artist, int) {
 	checkError(err)
 	defer respLocations.Body.Close()
 
-	body3, err := ioutil.ReadAll(respLocations.Body)
+	body3, err := io.ReadAll(respLocations.Body)
 	checkError(err)
 
 	json.Unmarshal(body3, &locations)
